@@ -7,45 +7,40 @@ const brandSchema = mongoose.Schema(
     name: {
       type: String,
       trim: true,
-      required: [true, "please provide brand name"],
+      required: [true, "Please provide a brand name"],
       maxLength: 100,
       unique: true,
       lowercase: true,
     },
-    description: true,
+    description: String,
     email: {
       type: String,
       lowercase: true,
-      validate: [validator.isEmail, "Please Provide a valid email"],
+      validate: [validator.isEmail, "Please provide a valid email"],
     },
     website: {
       type: String,
-      validate: [validator.isURL, "please provide a valid url"],
+      validate: [validator.isURL, "Please provide a valid url"],
     },
-    location: {
-      type: String,
-      products: [
-        {
-          type: ObjectId,
-          ref: "Product",
-        },
-      ],
-      suppliers: [
-        {
-          name: String,
-          contactNumber: String,
-          id: {
-            type: ObjectId,
-            ref: "Supplier",
-          },
-        },
-      ],
-      status: {
-        type: String,
-        enum: ["active", "inactive"],
-        default: active,
+    location: String,
+
+    suppliers: [
+      {
+        type: ObjectId,
+        ref: "Supplier",
       },
+    ],
+    status: {
+      type: String,
+      enum: ["active", "inactive"],
+      default: "active",
     },
+    products: [
+      {
+        type: ObjectId,
+        ref: "Product",
+      },
+    ],
   },
   {
     timestamps: true,

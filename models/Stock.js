@@ -17,7 +17,7 @@ const stockSchema = mongoose.Schema(
       unique: [true, "Name must be unique"],
       lowercase: true,
       minLength: [3, "Name must be at least 3 characters."],
-      maxLenght: [100, "Name is too large"],
+      maxLength: [100, "Name is too large"],
     },
     description: {
       type: String,
@@ -81,7 +81,7 @@ const stockSchema = mongoose.Schema(
       },
     },
     status: {
-      type: string,
+      type: String,
       required: true,
       enum: {
         values: ["in-stock", "out-of-stock", "discontinued"],
@@ -131,7 +131,7 @@ const stockSchema = mongoose.Schema(
   }
 );
 
-productSchema.pre("save", function (next) {
+stockSchema.pre("save", function (next) {
   //this ->
   console.log(" Before saving data");
   if (this.quantity == 0) {

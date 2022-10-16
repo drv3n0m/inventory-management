@@ -5,7 +5,12 @@ exports.createBrandService = async (data) => {
 };
 
 exports.getBrandService = async () => {
-  return await Brand.find({}).select("-products -suppliers");
+  return await Brand.find({})
+    .populate("products")
+    .populate({
+      path: "suppliers",
+      select: ["name", "contactNumber"],
+    });
 };
 
 exports.getBrandByIdService = async (id) => {
